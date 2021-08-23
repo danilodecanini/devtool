@@ -4,5 +4,11 @@
   "username": "root",
   "password": "password",
   "database": "devtool",
-  "port": 3306
+  "port": 3306,
+  "migrations": [
+    "./src/shared/infra/typeorm/migrations/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "./src/shared/infra/typeorm/migrations"
+  }
 }
