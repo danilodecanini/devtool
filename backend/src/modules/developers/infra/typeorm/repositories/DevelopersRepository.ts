@@ -3,7 +3,9 @@ import { getRepository, Repository } from "typeorm";
 import {
   ICreateDeveloperDTO,
   IDevelopersRepository,
+  IUpdateDeveloperDTO,
 } from "@modules/developers/repositories/IDevelopersRepository";
+import { ApplicationError } from "@shared/errors/ApplicationError";
 
 import { Developer } from "../entities/Developer";
 
@@ -50,6 +52,25 @@ class DevelopersRepository implements IDevelopersRepository {
       },
     });
     return developer;
+  }
+
+  async update(
+    developerId: string,
+    developeData: IUpdateDeveloperDTO,
+  ): Promise<void> {
+    const developer = await this.repository.findOne({
+      where: {
+        id: developerId,
+      },
+    });
+
+    if (!developer) {
+      throw new ApplicationError("Developer not found");
+    }
+
+    Object.assign(developer, developeData);
+
+    await this.repository.save(developer);
   }
 }
 

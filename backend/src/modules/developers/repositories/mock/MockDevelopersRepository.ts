@@ -3,6 +3,7 @@ import { Developer } from "@modules/developers/infra/typeorm/entities/Developer"
 import {
   ICreateDeveloperDTO,
   IDevelopersRepository,
+  IUpdateDeveloperDTO,
 } from "../IDevelopersRepository";
 
 class MockDevelopersRepository implements IDevelopersRepository {
@@ -37,6 +38,15 @@ class MockDevelopersRepository implements IDevelopersRepository {
     const developer = this.developers.find(developer => developer.id === uuid);
 
     return developer;
+  }
+
+  async update(
+    developerId: string,
+    developerInfo: IUpdateDeveloperDTO,
+  ): Promise<void> {
+    const dev = this.developers.find(dev => dev.id === developerId);
+
+    Object.assign(dev, developerInfo);
   }
 }
 

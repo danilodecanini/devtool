@@ -8,6 +8,14 @@ interface ICreateDeveloperDTO {
   datanascimento: string;
 }
 
+interface IUpdateDeveloperDTO {
+  nome?: string;
+  sexo?: number;
+  idade?: number;
+  hobby?: string;
+  datanascimento?: string;
+}
+
 interface IDevelopersRepository {
   create({
     nome,
@@ -18,6 +26,7 @@ interface IDevelopersRepository {
   }: ICreateDeveloperDTO): Promise<void>;
   list(page: number, limit: number): Promise<Developer[]>;
   findByUuid(uuid: string): Promise<Developer>;
+  update(developerUuid: string, developer: IUpdateDeveloperDTO): Promise<void>;
 }
 
-export { IDevelopersRepository, ICreateDeveloperDTO };
+export { IDevelopersRepository, ICreateDeveloperDTO, IUpdateDeveloperDTO };
