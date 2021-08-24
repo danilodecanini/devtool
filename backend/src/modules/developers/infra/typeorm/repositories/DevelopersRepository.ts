@@ -72,6 +72,10 @@ class DevelopersRepository implements IDevelopersRepository {
 
     await this.repository.save(developer);
   }
+
+  async delete(developer: Developer): Promise<void> {
+    await this.repository.delete(developer);
+  }
 }
 
 export { DevelopersRepository };

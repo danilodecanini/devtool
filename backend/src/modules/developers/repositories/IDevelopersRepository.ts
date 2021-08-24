@@ -27,6 +27,7 @@ interface IDevelopersRepository {
   list(page: number, limit: number): Promise<Developer[]>;
   findByUuid(uuid: string): Promise<Developer>;
   update(developerUuid: string, developer: IUpdateDeveloperDTO): Promise<void>;
+  delete(developer: Developer): Promise<void>;
 }
 
 export { IDevelopersRepository, ICreateDeveloperDTO, IUpdateDeveloperDTO };

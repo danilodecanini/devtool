@@ -48,6 +48,13 @@ class MockDevelopersRepository implements IDevelopersRepository {
 
     Object.assign(dev, developerInfo);
   }
+
+  async delete(developer: Developer): Promise<void> {
+    const developerIndex = this.developers.findIndex(
+      dev => dev.id === developer.id,
+    );
+    this.developers.splice(developerIndex, 1);
+  }
 }
 
 export { MockDevelopersRepository };
