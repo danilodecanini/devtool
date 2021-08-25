@@ -24,7 +24,9 @@ class Developer {
   @Column()
   idade: number;
 
-  @Column()
+  @Column({
+    type: "date",
+  })
   datanascimento: Date;
 
   @CreateDateColumn()
