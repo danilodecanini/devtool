@@ -23,3 +23,15 @@ export const AddButton = styled(Link)`
     filter: brightness(0.9);
   }
 `;
+
+export const Actions = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ActionsFilter = styled.div`
+  display: flex;
+  flex-direction: row;
+`;

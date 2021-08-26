@@ -1,11 +1,17 @@
+import { ActionsFilterGroup } from '../../components/ActionsFilterGroup';
 import { DevelopersTable } from '../../components/DevelopersTable';
 import { Pagination } from '../../components/Pagination';
-import { Container, AddButton } from './styles';
+import { Container, AddButton, ActionsFilter, Actions } from './styles';
 
 export function Dashboard() {
   return (
     <Container>
-      <AddButton to="/add">Adicionar novo</AddButton>
+      <Actions>
+        <AddButton to="/add">Adicionar novo</AddButton>
+        <ActionsFilter>
+          <ActionsFilterGroup />
+        </ActionsFilter>
+      </Actions>
       <DevelopersTable />
       <Pagination />
     </Container>

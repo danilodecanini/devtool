@@ -39,6 +39,11 @@ interface DevelopersContextData {
   nextPage: () => void;
   previousPage: () => void;
   page: number;
+  searchType: string;
+  searchValue: string;
+  setSearchType: (value: string) => void;
+  setSearchValue: (value: string) => void;
+  handleFilters: () => Promise<void>;
 }
 
 const DevelopersContext = createContext<DevelopersContextData>(
@@ -48,9 +53,22 @@ const DevelopersContext = createContext<DevelopersContextData>(
 export function DevelopersProvider({ children }: DevelopersProviderProps) {
   const [developers, setDevelopers] = useState<Developer[]>([]);
   const [page, setPage] = useState(1);
+  const [searchType, setSearchType] = useState('nome');
+  const [searchValue, setSearchValue] = useState('');
 
   async function getAllDevelopersPaginated() {
-    const response = await api.get(`/developers?page=${page}`);
+    const params = {
+      page,
+    };
+
+    if (searchValue !== '') {
+      Object.assign(params, {
+        search_type: searchType,
+        search_value: searchValue,
+      });
+    }
+
+    const response = await api.get(`/developers`, { params });
 
     setDevelopers(response.data);
   }
@@ -73,6 +91,10 @@ export function DevelopersProvider({ children }: DevelopersProviderProps) {
     if (page !== 1) {
       setPage(page - 1);
     }
+  }
+
+  async function handleFilters() {
+    await getAllDevelopersPaginated();
   }
 
   async function createDeveloper(developerData: DeveloperInputData) {
@@ -130,6 +152,11 @@ export function DevelopersProvider({ children }: DevelopersProviderProps) {
         nextPage,
         previousPage,
         page,
+        searchType,
+        searchValue,
+        setSearchType,
+        setSearchValue,
+        handleFilters,
       }}
     >
       {children}
