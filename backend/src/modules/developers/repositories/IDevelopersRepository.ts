@@ -24,7 +24,12 @@ interface IDevelopersRepository {
     hobby,
     datanascimento,
   }: ICreateDeveloperDTO): Promise<void>;
-  list(page: number, limit: number): Promise<Developer[]>;
+  list(
+    page: number,
+    limit: number,
+    search_type?: string,
+    search_value?: string,
+  ): Promise<Developer[]>;
   findByUuid(uuid: string): Promise<Developer>;
   update(developerUuid: string, developer: IUpdateDeveloperDTO): Promise<void>;
   delete(developer: Developer): Promise<void>;

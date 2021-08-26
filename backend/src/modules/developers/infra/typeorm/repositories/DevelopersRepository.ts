@@ -34,15 +34,25 @@ class DevelopersRepository implements IDevelopersRepository {
     await this.repository.save(developer);
   }
 
-  async list(page = 1, limit = 1): Promise<Developer[]> {
-    const developers = await this.repository.find({
-      take: limit,
-      skip: limit * (page - 1),
-      order: {
-        created_at: "ASC",
-      },
-    });
-    return developers;
+  async list(
+    page = 1,
+    limit = 1,
+    search_type?: string,
+    search_value?: string,
+  ): Promise<Developer[]> {
+    const query = this.repository
+      .createQueryBuilder("developer")
+      .skip(limit * (page - 1))
+      .take(limit)
+      .orderBy("developer.created_at", "ASC");
+
+    if (search_value !== "undefined" && search_value !== null) {
+      query.where(`${search_value} LIKE :search_type`, {
+        search_type: `%${search_type}%`,
+      });
+    }
+
+    return query.getMany();
   }
 
   async findByUuid(uuid: string): Promise<Developer> {
