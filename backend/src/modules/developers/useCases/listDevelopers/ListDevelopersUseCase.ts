@@ -8,13 +8,13 @@ class ListDevelopersUseCase {
   constructor(
     @inject("DevelopersRepository")
     private developersRepository: IDevelopersRepository,
-  ) {}
+  ) { }
 
   async execute(
     page = 1,
     limit = 10,
-    search_type: string,
-    search_value: string,
+    search_type?: string,
+    search_value?: string,
   ): Promise<Developer[]> {
     const developers = this.developersRepository.list(
       page,
